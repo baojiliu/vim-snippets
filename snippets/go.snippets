@@ -278,3 +278,38 @@ snippet errwr "Error handling with errors.Wrap"
 	if ${1}err != nil {
 		return errors.Wrap(err, "${2}")
 	}
+
+snippet ze "zap log"
+	logger().Errorw("${1}",
+		"${2}", "${3}",
+		"err", err,
+	)
+snippet zi "zap info"
+	logger().Infow("${1}",
+		"${2}", "${3}",
+	)
+
+snippet cf "context func"
+	func ${1}(ctx context.Context,${2})(${4}err error){
+		${5}
+	}
+
+snippet dbt "run db trancation"
+	s.w.dbc.RunInTransaction(func(tx *pg.Tx) (${1}terr error){
+		${2}
+		return
+	})
+
+snippet pgm "create pg go model"
+	type ${1} struct{
+		tableName struct{} \`sql:"${2}"\`
+	}
+
+snippet ie "if error not nil, log and retrun"
+	if err != nil {
+	        logger().Errorw("${1}",
+	        	"${2}", "${3}",
+	        	"err", err,
+	        )
+		return
+	}
